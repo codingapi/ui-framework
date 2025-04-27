@@ -99,6 +99,7 @@ export interface SelectOptionFormEditProps {
 
 // Form表单字段属性
 export interface FormItemProps {
+    key?:string;
     // 是否隐藏字段
     hidden?: boolean;
     // 是否禁用
@@ -106,7 +107,7 @@ export interface FormItemProps {
     // 是否必填,当为true时会自动给rules添加required校验
     required?: boolean;
     // 表单字段名
-    name?: NamePath;
+    name: NamePath;
     // 表单字段标签
     label?: React.ReactNode;
     // 帮助提示信息,出现组件的底部
