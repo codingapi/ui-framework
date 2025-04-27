@@ -59,6 +59,21 @@ access.setPermission('user', ['read', 'write']);
 const hasPermission = access.checkPermission('user', 'read');
 ```
 
+## Webpack 5 配置
+
+如果你使用的是 Webpack 5，需要在你的 webpack 配置中添加以下配置：
+
+```javascript
+module.exports = {
+  // ... 其他配置
+  resolve: {
+    fallback: {
+      "util": false
+    }
+  }
+};
+```
+
 ## 主要特性
 
 - 组件总线：用于管理和注册组件

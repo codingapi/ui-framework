@@ -1,6 +1,6 @@
 {
   "name": "@codingapi/ui-framework",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A UI Framework built with React and Typescript",
   "keywords": ["ui", "framework", "react", "typescript"],
   "homepage": "https://github.com/codingapi/ui-framework",
@@ -13,6 +13,9 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "browser": {
+    "util": false
+  },
   "license": "Apache-2.0",
   "files": [
     "dist"
