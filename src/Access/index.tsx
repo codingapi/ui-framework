@@ -1,5 +1,5 @@
 import React from "react";
-import {RoleControl} from "../utils/role";
+import {RoleControl} from "../utils";
 
 export interface AccessProps {
     children?: React.ReactNode;

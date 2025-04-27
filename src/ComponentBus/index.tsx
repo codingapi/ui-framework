@@ -1,5 +1,5 @@
 import React from "react";
-import {DynamicComponentUtils} from "../utils/dynamicComponent";
+import {DynamicComponentUtils} from "../utils";
 
 export class ComponentBus {
 

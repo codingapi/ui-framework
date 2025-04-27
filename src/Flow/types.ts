@@ -1,5 +1,5 @@
 import React from "react";
-import {FormInstance} from "../Form/instance";
+import {FormInstance} from "../Form";
 
 // 节点状态
 export type NodeState = "done" | "wait" | "undone" | "current";
