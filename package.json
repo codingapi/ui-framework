@@ -3,7 +3,7 @@
   "version": "0.0.5",
   "description": "A UI Framework built with React and Typescript",
   "keywords": ["ui", "framework", "react", "typescript"],
-  "homepage": "https://github.com/codingapi/ui-framework#readme",
+  "homepage": "https://github.com/codingapi/ui-framework",
   "bugs": {
     "url": "https://github.com/codingapi/ui-framework/issues"
   },
