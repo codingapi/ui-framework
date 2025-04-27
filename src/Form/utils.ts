@@ -1,6 +1,6 @@
 import {FormValidateContent} from "./validate";
 
-class ValidateUtils {
+export class ValidateUtils {
 
     /**
      * 非空校验
@@ -27,4 +27,3 @@ class ValidateUtils {
     }
 }
 
-export default ValidateUtils;
