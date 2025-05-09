@@ -17,5 +17,10 @@ export class Base64Utils{
         return atob(base64);
     }
 
+
+    public static stringToBase64 = (str: string) => {
+        return btoa(str);
+    }
+
 }
 
