@@ -2,7 +2,12 @@
   "name": "@codingapi/ui-framework",
   "version": "0.0.12",
   "description": "A UI Framework built with React and Typescript",
-  "keywords": ["ui", "framework", "react", "typescript"],
+  "keywords": [
+    "ui",
+    "framework",
+    "react",
+    "typescript"
+  ],
   "homepage": "https://github.com/codingapi/ui-framework",
   "bugs": {
     "url": "https://github.com/codingapi/ui-framework/issues"
@@ -33,7 +38,9 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn clean && rollup -c --bundleConfigAsCjs",
-    "push": "yarn build && yarn publish --access public"
+    "push": "yarn build && yarn publish --access public",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "eslintConfig": {
     "extends": [
@@ -56,13 +63,21 @@
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/jest": "^29.5.14",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.32",
     "rollup": "^4.9.1",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-typescript2": "^0.36.0"
+    "rollup-plugin-typescript2": "^0.36.0",
+    "ts-jest": "^29.3.2"
   }
 }
