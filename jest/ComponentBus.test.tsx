@@ -30,7 +30,6 @@ test('ComponentBus Test 2 ', () => {
     const mockOnClick = jest.fn();
     ComponentBus.getInstance().removeAllComponent();
     const Button = ComponentBus.getInstance().getComponent('Button') as React.ComponentType<MyButtonProps>;
-    console.log(Button)
     //断言按钮不存在
     expect(Button).toBeUndefined();
 });
