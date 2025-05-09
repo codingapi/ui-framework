@@ -19,3 +19,24 @@ test('Form getFieldProps Test', () => {
     expect(field).toEqual(input);
 
 });
+
+
+
+test('Form validate Test', () => {
+    const formInstance = new FormInstance();
+
+    const input = {
+        type: 'input',
+        props: {
+            name: 'test',
+            label: 'test',
+        }
+    } as FormField;
+
+    formInstance.resetFields([input]);
+
+    formInstance.validate().then(result=>{
+        expect(result).toEqual(true);
+    });
+
+});

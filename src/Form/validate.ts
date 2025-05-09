@@ -80,6 +80,9 @@ export class FormValidateContext {
     }
 
     public validate = async (form: FormInstance) => {
+        if (this.map.size <= 0) {
+            return Promise.resolve(true);
+        }
         const list = Array.from(this.map.keys().map(item => {
             return this.validateField(item, form);
         }));

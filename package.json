@@ -1,6 +1,6 @@
 {
   "name": "@codingapi/ui-framework",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A UI Framework built with React and Typescript",
   "keywords": [
     "ui",
