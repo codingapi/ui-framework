@@ -22,6 +22,15 @@ export class ComponentBus {
         this.componentBus.delete(key);
     }
 
+
+    /**
+     * 删除所有组件
+     */
+    public removeAllComponent = () => {
+        this.componentBus.clear();
+    }
+
+
     /**
      * 注册远程组件
      * @param key 组件key

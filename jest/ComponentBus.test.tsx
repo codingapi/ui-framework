@@ -4,7 +4,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { ComponentBus } from '../src';
 import MyButton, { MyButtonProps } from './components/MyButton';
 
-test('ComponentBus Test', () => {
+test('ComponentBus Test 1 ', () => {
+    ComponentBus.getInstance().removeAllComponent();
     const mockOnClick = jest.fn();
     ComponentBus.getInstance().registerComponent('Button', MyButton);
     const Button = ComponentBus.getInstance().getComponent('Button') as React.ComponentType<MyButtonProps>;
@@ -22,4 +23,14 @@ test('ComponentBus Test', () => {
 
     // 断言点击事件被调用
     expect(mockOnClick).toHaveBeenCalledTimes(1);
+});
+
+
+test('ComponentBus Test 2 ', () => {
+    const mockOnClick = jest.fn();
+    ComponentBus.getInstance().removeAllComponent();
+    const Button = ComponentBus.getInstance().getComponent('Button') as React.ComponentType<MyButtonProps>;
+    console.log(Button)
+    //断言按钮不存在
+    expect(Button).toBeUndefined();
 });
