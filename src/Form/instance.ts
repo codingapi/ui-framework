@@ -5,23 +5,50 @@ import React from "react";
 import {AntdForm, AntdFormInstance} from "./antd";
 
 export class FormInstance {
+    // 校验上下文
     private readonly validateContext: FormValidateContext;
+    // 重新加载上下文
     private readonly reloadContext: FormFieldReloadListenerContext;
+    // 选项重新加载上下文
     private readonly optionContext: FormFieldOptionListenerContext;
+    // 表单实例
     private readonly formInstance: AntdFormInstance|undefined;
+    // 表单操作对象
     private readonly formAction: FormAction;
+    // 动态表单字段
     private fields: FormField[];
-
+    // 表单字段组件
+    private formFields:  FormField[];
+    // 表单字段更新函数
     private fieldsUpdateDispatch: React.Dispatch<React.SetStateAction<FormField[]>> | undefined;
 
+    /**
+     * 表单字段更新函数
+     * @param fieldsUpdateDispatch
+     */
     public setFieldsUpdateDispatch = (fieldsUpdateDispatch: React.Dispatch<React.SetStateAction<FormField[]>>) => {
         this.fieldsUpdateDispatch = fieldsUpdateDispatch;
     }
 
+    /**
+     * 更新表单字段
+     * @param resetFields
+     */
     private updateFields = (resetFields: (prevState: FormField[]) => FormField[]) => {
         this.fields = resetFields(this.fields);
         if (this.fieldsUpdateDispatch) {
             this.fieldsUpdateDispatch(resetFields);
+        }
+    }
+
+    /**
+     * 添加表单字段
+     * @param field
+     */
+    public addFormField = (field: FormField) => {
+        const formFieldNames = this.formFields.map((item) => item.props.name);
+        if (formFieldNames.indexOf(field.props.name) === -1) {
+            this.formFields.push(field);
         }
     }
 
@@ -216,6 +243,24 @@ export class FormInstance {
         return this.formInstance?.getFieldsValue();
     }
 
+
+    /**
+     * 获取Form表单字段
+     * @param name
+     */
+    public getFormFieldProps = (name: NamePath) => {
+        for (const field of this.formFields) {
+            if (field.props.name && this.namePathEqual(field.props.name, name)) {
+                return field;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取动态表单字段
+     * @param name
+     */
     public getFieldProps = (name: NamePath) => {
         for (const field of this.fields) {
             if (field.props.name && this.namePathEqual(field.props.name, name)) {
@@ -262,6 +307,7 @@ export class FormInstance {
         this.optionContext = new FormFieldOptionListenerContext();
         this.formInstance = AntdForm.getInstance().useForm();
         this.fields = [];
+        this.formFields = [];
         this.formAction = {
             submit: this.submit,
             reset: this.reset,

@@ -15,7 +15,7 @@ export class FormValidateContent {
     }
 
     getFieldProps = () => {
-        return this.form.getFieldProps(this.name);
+        return this.form.getFieldProps(this.name) || this.form.getFormFieldProps(this.name);
     }
 }
 
