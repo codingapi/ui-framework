@@ -135,6 +135,9 @@ export interface FormItemProps {
     // 动态校验函数,尽在fields模式下生效
     validateFunction?: (content: FormValidateContent) => Promise<string[]>,
 
+    // 组件的默认属性
+    itemProps?:any;
+
     /** 以下为表单字段的拓展熟悉，非公共属性 **/
     // 单选框方向
     radioDirection?: "vertical" | "horizontal",
