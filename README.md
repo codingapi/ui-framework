@@ -12,75 +12,307 @@ yarn add @codingapi/ui-framework
 
 ## 使用
 
-### 基本使用
+### 组件总线
 
 ```javascript
-import { ComponentBus, EventBus } from '@codingapi/ui-framework';
+import React from "react";
+import Space from "@/components/Space";
+import {ComponentBus} from "@codingapi/ui-framework";
 
-// 初始化组件总线
-const componentBus = new ComponentBus();
 
-// 初始化事件总线
-const eventBus = new EventBus();
+const MyComponent = () => {
+    return (
+        <div>
+            my component
+        </div>
+    )
+}
 
-// 注册组件
-componentBus.register('MyComponent', {
-  render: () => <div>Hello World</div>
-});
+const ComponentBusTest = () => {
 
-// 使用组件
-const MyComponent = componentBus.get('MyComponent');
+    const [pageVersion, setPageVersion] = React.useState(0);
+    const COMPONENT_KEY = 'MyComponent';
+
+    const MyComponentContent = ComponentBus.getInstance().getComponent(COMPONENT_KEY);
+
+    const handlerAddComponent = () => {
+        ComponentBus.getInstance().registerComponent(COMPONENT_KEY, MyComponent);
+        setPageVersion(Math.random());
+    }
+
+    const handlerRemoveComponent = () => {
+        ComponentBus.getInstance().removeComponent(COMPONENT_KEY);
+        setPageVersion(Math.random());
+    }
+
+    return (
+        <>
+            <div
+                style={{
+                    textAlign: 'center'
+                }}
+            >
+                <h1>ComponentBus Test </h1>
+            </div>
+
+            <Space>
+                Component:
+                {MyComponentContent && (
+                    <MyComponentContent/>
+                )}
+                <button onClick={handlerAddComponent}>add component</button>
+
+                <button onClick={handlerRemoveComponent}>remove component</button>
+            </Space>
+
+        </>
+    )
+}
+
+export default ComponentBusTest;
 ```
 
 ### 事件总线使用
 
 ```javascript
-// 订阅事件
-eventBus.subscribe('eventName', (data) => {
-  console.log('Received event:', data);
-});
+import React from "react";
+import Space from "@/components/Space";
+import {EventBus} from "@codingapi/ui-framework";
 
-// 发布事件
-eventBus.publish('eventName', { message: 'Hello' });
+const EventBusTest = () => {
+
+    const handlerAddEvent = () => {
+        EventBus.getInstance().on('test', (data: any) => {
+            alert(data);
+        });
+    }
+
+    const handlerRemoveEvent = () => {
+        EventBus.getInstance().off('test');
+    }
+
+    const handlerEmitEvent = () => {
+        EventBus.getInstance().emit('test', 'test event');
+    }
+
+
+    return (
+        <>
+            <div
+                style={{
+                    textAlign: 'center'
+                }}
+            >
+                <h1>EventBus Test </h1>
+            </div>
+
+            <Space>
+                <button onClick={handlerAddEvent}>add event</button>
+
+                <button onClick={handlerEmitEvent}>emit event</button>
+
+                <button onClick={handlerRemoveEvent}>remove event</button>
+            </Space>
+        </>
+    )
+}
+
+export default EventBusTest;
 ```
 
 ### 访问控制
 
 ```javascript
-import { Access } from '@codingapi/ui-framework';
+import React from "react";
+import {Access} from "@codingapi/ui-framework";
+import Space from "./Space";
 
-// 创建访问控制实例
-const access = new Access();
+const AccessTest = () => {
 
-// 设置权限
-access.setPermission('user', ['read', 'write']);
+    const [pageVersion, setPageVersion] = React.useState(Math.random());
+    const handlerAddRole = (role: string) => {
+        const authorities = localStorage.getItem('authorities');
+        localStorage.setItem('authorities', JSON.stringify([...(authorities ? JSON.parse(authorities) : []), role]));
+        setPageVersion(Math.random());
+    }
 
-// 检查权限
-const hasPermission = access.checkPermission('user', 'read');
+    const handlerRemoveRole = (role: string) => {
+        const authorities = localStorage.getItem('authorities') || '[]';
+        localStorage.setItem('authorities', JSON.stringify(JSON.parse(authorities).filter((item: string) => item !== role)));
+        setPageVersion(Math.random());
+    }
+
+    const handlerRemoveAllRole = () => {
+        localStorage.removeItem('authorities');
+        setPageVersion(Math.random());
+    }
+
+    return (
+        <>
+            <div
+                style={{
+                    textAlign: 'center'
+                }}
+            >
+                <h1>Access Role Test </h1>
+            </div>
+            <Space>
+                hasRoles['admin']：
+                <Access hasRoles={['admin']}>
+                    <div>has admin role</div>
+                </Access>
+
+                <button onClick={() => {
+                    handlerAddRole('admin');
+                }}>add admin role
+                </button>
+
+                <button onClick={() => {
+                    handlerRemoveRole('admin');
+                }}>remove admin role
+                </button>
+            </Space>
+
+            <Space>
+                HasAnyRoles['user']：
+                <Access hasAnyRoles={['user']}>
+                    <div>has user role</div>
+                </Access>
+
+                <button onClick={() => {
+                    handlerAddRole('user');
+                }}>add user role
+                </button>
+
+                <button onClick={() => {
+                    handlerRemoveRole('user');
+                }}>remove user role
+                </button>
+            </Space>
+
+
+            <Space>
+                noAnyRoles['user']：
+                <Access noAnyRoles={['user']}>
+                    <div>has user role</div>
+                </Access>
+
+                <button onClick={() => {
+                    handlerAddRole('user');
+                }}>add user role
+                </button>
+
+                <button onClick={() => {
+                    handlerRemoveRole('user');
+                }}>remove user role
+                </button>
+            </Space>
+
+            <Space>
+                isNotRoles：
+                <Access isNotRoles={true}>
+                    <div>no role</div>
+                </Access>
+                <button onClick={handlerRemoveAllRole}>remove all role</button>
+            </Space>
+        </>
+    )
+}
+
+export default AccessTest;
 ```
 
-## Webpack 5 配置
-
-如果你使用的是 Webpack 5，需要在你的 webpack 配置中添加以下配置：
+### 微前端动态组件
 
 ```javascript
-module.exports = {
-  // ... 其他配置
-  resolve: {
-    fallback: {
-      "util": false
+import React from "react";
+import Space from "@/components/Space";
+import {DynamicComponentUtils} from "@codingapi/ui-framework";
+
+
+const MicroComponentTest = () => {
+
+    const [url, setUrl] = React.useState('http://localhost:3000/remoteEntry.js');
+    const [scope, setScope] = React.useState('MircoApp');
+    const [module, setModule] = React.useState('./Header');
+
+    const [RemoteComponent, setRemoteComponent] = React.useState<React.ComponentType | null>(null);
+
+    const handlerAddComponent = () => {
+        DynamicComponentUtils.loadRemoteScript(url)
+            .then(() => {
+                DynamicComponentUtils.loadRemoteComponent(scope, module)
+                    .then((ComponentModule:any) => {
+                        const Component = ComponentModule.default || ComponentModule;
+                        setRemoteComponent(() => Component);
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+            })
+            .catch(e => {
+                console.log(e);
+            });
     }
-  }
-};
+
+    const handlerRemoveComponent = () => {
+        setRemoteComponent(() => null);
+    }
+
+    return (
+        <>
+            <div
+                style={{
+                    textAlign: 'center'
+                }}
+            >
+                <h1>Load Micro Component Test </h1>
+            </div>
+            <Space>
+                <div>
+                    url:
+                    <input
+                        value={url}
+                        onChange={(e) => {
+                            setUrl(e.target.value);
+                        }}/>
+                </div>
+                <div>
+                    scope:
+                    <input
+                        value={scope}
+                        onChange={(e) => {
+                            setScope(e.target.value);
+                        }}/>
+                </div>
+                <div>
+                    module:
+                    <input
+                        value={module}
+                        onChange={(e) => {
+                            setModule(e.target.value);
+                        }}/>
+                </div>
+            </Space>
+            <Space>
+                <button onClick={handlerAddComponent}>add remote component</button>
+                <button onClick={handlerRemoveComponent}>remove remote component</button>
+            </Space>
+            {RemoteComponent && <RemoteComponent/>}
+        </>
+    )
+}
+
+export default MicroComponentTest;
 ```
+更多实例参考: https://github.com/codingapi/ui-framework/tree/main/playground
 
 ## 主要特性
 
 - 组件总线：用于管理和注册组件
 - 事件总线：用于组件间通信
 - 访问控制：用于权限管理
-- TypeScript 支持：提供完整的类型定义
-- 模块化：支持按需加载
+- 微前端动态组件：支持动态加载和卸载组件
 
 ## 开发
 
