@@ -4,6 +4,7 @@ import ComponentBusTest from "@/components/ComponentBusTest";
 import EventBusTest from "@/components/EventBusTest";
 import MicroComponentTest from "@/components/MicroComponentTest";
 import Base64Test from "@/components/Base64Test";
+import HttpTest from "@/components/HttpTest";
 
 const App = () => {
 
@@ -18,6 +19,7 @@ const App = () => {
             <EventBusTest/>
             <MicroComponentTest/>
             <Base64Test/>
+            <HttpTest/>
         </div>
     );
 }

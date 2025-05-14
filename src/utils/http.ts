@@ -7,6 +7,14 @@ export interface MessageBox {
     error: (msg: string) => void;
 }
 
+export type Response = {
+    success: boolean;
+    errCode?: string;
+    errMessage?: string;
+    data?: any;
+    total?: number;
+}
+
 export class HttpClient {
     private readonly api: AxiosInstance;
     private readonly messageBox: MessageBox;
@@ -90,12 +98,12 @@ export class HttpClient {
         )
     }
 
-    public get = async (url: string, params?: any) => {
+    public get = async (url: string, params?: any): Promise<Response> => {
         try {
             const response = await this.api.get(url, {
                 params
             });
-            return response.data;
+            return response.data as Response;
         } catch (e) {
             return {
                 success: false,
@@ -103,10 +111,34 @@ export class HttpClient {
         }
     }
 
-    public post = async (url: string, data: any) => {
+    public put = async (url: string, data: any): Promise<Response> => {
+        try {
+            const response = await this.api.put(url, data);
+            return response.data as Response;
+        } catch (e) {
+            return {
+                success: false,
+            }
+        }
+    }
+
+    public delete = async (url: string, params?: any): Promise<Response> => {
+        try {
+            const response = await this.api.delete(url, {
+                params
+            });
+            return response.data as Response;
+        } catch (e) {
+            return {
+                success: false,
+            }
+        }
+    }
+
+    public post = async (url: string, data: any): Promise<Response> => {
         try {
             const response = await this.api.post(url, data);
-            return response.data;
+            return response.data as Response;
         } catch (e) {
             return {
                 success: false,
@@ -118,7 +150,7 @@ export class HttpClient {
     public page = async (url: string, params: any, sort: any, filter: any, match: {
         key: string,
         type: string
-    }[]) => {
+    }[]): Promise<Response> => {
         const base64Match = Base64Utils.stringToBase64(JSON.stringify(match));
         const base64Sort = Base64Utils.stringToBase64(JSON.stringify(sort));
         const base64Filter = Base64Utils.stringToBase64(JSON.stringify(filter));

@@ -306,6 +306,61 @@ const MicroComponentTest = () => {
 
 export default MicroComponentTest;
 ```
+
+### 网络请求
+```
+import React from "react";
+import Space from "@/components/Space";
+//@ts-ignore
+import {HttpClient,Response} from "@codingapi/ui-framework";
+
+const httpClient = new HttpClient(10000,{
+    success:(msg:string)=>{
+        console.log('success',msg);
+    },
+    error:(msg:string)=>{
+        console.log('error',msg);
+    },
+});
+
+const HttpTest = ()=>{
+
+    const [url, setUrl] = React.useState('/api/products');
+
+    const handlerGet = ()=>{
+        httpClient.get(url).then((res:Response)=>{
+            const json = JSON.stringify(res);
+            console.log(json);
+            alert(json);
+        })
+    }
+
+    return (
+        <>
+            <div
+                style={{
+                    textAlign: 'center'
+                }}
+            >
+                <h1>Http Test </h1>
+            </div>
+            <Space>
+                url:
+                <input
+                    value={url}
+                    onChange={(e) => {
+                        setUrl(e.target.value);
+                    }}/>
+                <button onClick={handlerGet}>get</button>
+            </Space>
+        </>
+    )
+}
+
+export default HttpTest;
+
+```
+
 更多实例参考: https://github.com/codingapi/ui-framework/tree/main/playground
 
 ## 主要特性
@@ -314,6 +369,7 @@ export default MicroComponentTest;
 - 事件总线：用于组件间通信
 - 访问控制：用于权限管理
 - 微前端动态组件：支持动态加载和卸载组件
+- 网络请求：封装了 HttpClient，支持 GET、POST、PUT、DELETE 等请求方式
 
 ## 开发
 
