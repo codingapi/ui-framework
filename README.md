@@ -1,3 +1,4 @@
+[![npm](https://img.shields.io/npm/v/@codingapi/ui-framework.svg)](https://www.npmjs.com/package/@codingapi/ui-framework)
 # UI-Framework
 
 一个基于 React 和 TypeScript 构建的 UI 框架。
