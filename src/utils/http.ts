@@ -19,10 +19,11 @@ export class HttpClient {
     private readonly api: AxiosInstance;
     private readonly messageBox: MessageBox;
 
-    constructor(timeout: number, messageBox: MessageBox) {
+    constructor(timeout: number, messageBox: MessageBox, baseUrl = '') {
         this.messageBox = messageBox;
         this.api = axios.create({
             timeout: timeout,
+            baseURL: baseUrl,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -104,9 +105,11 @@ export class HttpClient {
                 params
             });
             return response.data as Response;
-        } catch (e) {
+        } catch (err:any) {
             return {
                 success: false,
+                errMessage:err.message,
+                errCode:'http.error'
             }
         }
     }
@@ -115,9 +118,11 @@ export class HttpClient {
         try {
             const response = await this.api.put(url, data);
             return response.data as Response;
-        } catch (e) {
+        } catch (err:any) {
             return {
                 success: false,
+                errMessage:err.message,
+                errCode:'http.error'
             }
         }
     }
@@ -128,9 +133,11 @@ export class HttpClient {
                 params
             });
             return response.data as Response;
-        } catch (e) {
+        } catch (err:any) {
             return {
                 success: false,
+                errMessage:err.message,
+                errCode:'http.error'
             }
         }
     }
@@ -139,9 +146,11 @@ export class HttpClient {
         try {
             const response = await this.api.post(url, data);
             return response.data as Response;
-        } catch (e) {
+        } catch (err:any) {
             return {
                 success: false,
+                errMessage:err.message,
+                errCode:'http.error'
             }
         }
     }
