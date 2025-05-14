@@ -79,7 +79,7 @@ type FormFieldType =
     "input" | "cascader" | "select" | "password" | "date" |
     "radio" | "textarea" | "checkbox" | "uploader" | "switch" |
     "stepper" | "slider" | "rate" | "selector" | "captcha" |
-    "code" | "color";
+    "code" | "color" | any;
 
 // FormField
 export interface FormField {
