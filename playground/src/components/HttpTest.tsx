@@ -1,6 +1,5 @@
 import React from "react";
 import Space from "@/components/Space";
-//@ts-ignore
 import {HttpClient,Response} from "@codingapi/ui-framework";
 
 const httpClient = new HttpClient(10000,{
