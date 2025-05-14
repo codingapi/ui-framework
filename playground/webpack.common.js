@@ -20,6 +20,7 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js'],
         alias: {
             '@': path.resolve(__dirname, 'src'),
+            '@codingapi/ui-framework': path.resolve(__dirname, '../src'),
         },
     },
     module: {
