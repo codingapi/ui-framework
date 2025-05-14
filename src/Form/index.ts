@@ -4,3 +4,4 @@ export * from './instance';
 export * from './listener';
 export * from './utils';
 export * from './validate';
+export * from './fatory';
