@@ -251,6 +251,24 @@ export interface FormItemProps {
         // 文件地址
         url: string;
     }[]>
+}
 
 
+export interface FormProps {
+    // 表单字段
+    loadFields?: () => Promise<FormField[]>;
+    // 表单提交事件
+    onFinish?: (values: any) => Promise<void>;
+    // form布局，默认vertical
+    layout?: 'horizontal' | 'vertical';
+    // children元素
+    children?: React.ReactNode;
+    // footer元素
+    footer?: React.ReactNode;
+    // 初始化值
+    initialValues?: any;
+    // 表单实例
+    form?: FormInstance;
+    // 注册表单字段
+    registerFormItems?:()=>void;
 }

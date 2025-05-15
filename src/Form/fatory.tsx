@@ -5,7 +5,6 @@ export class FormFactory {
     private readonly items = new Map<string, React.ComponentType<FormItemProps>>;
 
     private constructor() {
-
     }
 
     private static instance = new FormFactory();
@@ -14,7 +13,7 @@ export class FormFactory {
         return this.instance;
     }
 
-    public addItem(type: string, item: React.ComponentType<FormItemProps>): void {
+    public setItem(type: string, item: React.ComponentType<FormItemProps>): void {
         this.items.set(type, item);
     }
 
@@ -22,16 +21,22 @@ export class FormFactory {
         return this.items.get(type);
     }
 
-    public create(filed:FormField){
-        const type = filed.type;
-        const props = filed.props;
+    public removeItem(type: string): void {
+        this.items.delete(type);
+    }
 
-        const item = this.getItem(type);
-        if (item) {
-            return React.createElement(item, {
-                ...props,
-                key: props.name as string
-            });
+    public create(field:FormField){
+        const type = field.type;
+        const props = field.props;
+
+        const FormItem = this.getItem(type);
+        if (FormItem) {
+            return (
+                <FormItem
+                    {...props}
+                    key={props.name as string}
+                />
+            )
         }
         return null;
     }
