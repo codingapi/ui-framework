@@ -429,6 +429,7 @@ export default ThemeTest;
 - 访问控制：用于权限管理
 - 微前端动态组件：支持动态加载和卸载组件
 - 网络请求：封装了 HttpClient，支持 GET、POST、PUT、DELETE 等请求方式
+- 主题控制：支持动态修改主题和字体大小
 
 ## 开发
 
