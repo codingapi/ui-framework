@@ -3,3 +3,4 @@ export * from './dynamicComponent';
 export * from './role';
 export * from './sleep';
 export * from './http';
+export * from './css';

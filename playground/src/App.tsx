@@ -5,6 +5,7 @@ import EventBusTest from "@/components/EventBusTest";
 import MicroComponentTest from "@/components/MicroComponentTest";
 import Base64Test from "@/components/Base64Test";
 import HttpTest from "@/components/HttpTest";
+import ThemeTest from "@/components/ThemeTest";
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
             <MicroComponentTest/>
             <Base64Test/>
             <HttpTest/>
+            <ThemeTest/>
         </div>
     );
 }
