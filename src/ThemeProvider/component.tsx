@@ -4,7 +4,7 @@ import {ThemeConfig} from "./types";
 
 interface ThemeProviderProps {
     children: React.ReactNode;
-    theme: ThemeConfig
+    theme?: ThemeConfig
 }
 
 export const ThemeProviderContext = React.createContext<ThemeContext | null>(null);
@@ -13,9 +13,11 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
 
     const currentTheme = React.useContext(ThemeProviderContext) || {};
 
+    const propsTheme = props.theme || {} as ThemeConfig;
+
     const [theme, dispatch] = React.useState<ThemeConfig>({
         ...currentTheme,
-        ...props.theme
+        ...propsTheme
     });
 
     const themeContextRef = React.useRef<ThemeContext | null>(null);
