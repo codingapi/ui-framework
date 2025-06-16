@@ -180,3 +180,53 @@ export interface FlowViewProps {
     // 表单参数，参数仅当在发起节点时才会传递
     formParams?: FlowFormParams;
 }
+
+
+// 流程节点标题配置界面
+export const FlowNodeTitleFormPropsKey = "FlowNodeTitleFormPropsKey";
+export interface FlowNodeTitleFormProps {
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
+    onFinish: (script: string) => void;
+    currentScript: string;
+}
+
+// 流程节点异常处理配置界面
+export const FlowNodeErrorTriggerFormPropsKey = "FlowNodeErrorTriggerFormPropsKey";
+export interface FlowNodeErrorTriggerFormProps {
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
+    onFinish: (script: string) => void;
+    currentScript: string;
+}
+
+// 流程按钮自定义接口配置界面
+export const FlowButtonCustomApiFormPropsKey = "FlowButtonCustomApiPropsKey";
+export interface FlowButtonCustomApiFormProps {
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
+    onFinish: (script: string) => void;
+    currentScript: string;
+}
+
+// 流程关系出口设置配置界面
+export const FlowEdgeOutTriggerFormPropsKey = "FlowEdgeOutTriggerPropsKey";
+export interface FlowEdgeOutTriggerFormProps {
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
+    onFinish: (script: string) => void;
+    currentScript: string;
+}
+
+// 流程记录流程详情展示界面
+export const FlowViewRecordPropsKey = "FlowViewRecordPropsKey";
+export interface FlowViewRecordProps {}
+
+// 流程记录流程图展示界面
+export const FlowViewChartPropsKey = "FlowViewChartPropsKey";
+export interface FlowViewChartProps {}
+
+// 流程记录流程意见框展示界面
+export const FlowViewOpinionPropsKey = "FlowViewOpinionPropsKey";
+export interface FlowViewOpinionProps {}
+
