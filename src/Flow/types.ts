@@ -10,12 +10,19 @@ export type NodeType = 'start-node' | 'node-node' | 'over-node' | 'circulate-nod
 // 流程图中线的类型
 export type EdgeType = 'line' | 'polyline' | 'bezier';
 
-
+// 退回节点视图Key
+export const BackFlowNodeViewKey = 'BackFlowNodeViewKey';
 // 延期表单视图Key
 export const PostponedFormViewKey = 'PostponedFormView';
 // 选人表单视图Key
 export const UserSelectFormViewKey = 'UserSelectFormViewKey';
 
+// 退回流程节点视图
+export interface BackFlowNodeViewProps {
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
+    onFinish: (backNode: string) => void;
+}
 
 // 延期表单 【拓展视图】
 export interface PostponedFormProps {
@@ -71,7 +78,9 @@ export type ButtonType =
     | 'URGE'    // 催办
     | 'CUSTOM'  // 自定义后端接口
     | 'VIEW'    // 自定义前端事件
-    | 'REMOVE'; // 删除
+    | 'REMOVE'  // 删除
+    | 'BACK'    // 退回流程
+    | 'VOIDED'  // 作废流程
 
 
 // 流程自定义按钮
