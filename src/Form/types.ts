@@ -2,7 +2,6 @@ import React from "react";
 import {FormInstance} from "./instance";
 import {FormValidateContent} from "./validate";
 
-
 export type NamePath =  string | number | boolean | (string | number | boolean)[];
 
 
@@ -256,6 +255,23 @@ export interface FormTypeProps {
     }[]>
 }
 
+export interface FormDisplay{
+
+    header:boolean | {
+        title?:string,
+        left?:string,
+        right?:string,
+    }
+    body:{
+        title?:string,
+        list?:
+            {
+                fieldName?:NamePath
+            }[]
+    }[]
+
+}
+
 
 export interface FormProps {
     // 表单字段
@@ -264,6 +280,8 @@ export interface FormProps {
     onFinish?: (values: any) => Promise<void>;
     // form布局，默认vertical
     layout?: 'horizontal' | 'vertical';
+    // 字段展示布局
+    display?: FormDisplay;
     // children元素
     children?: React.ReactNode;
     // footer元素
