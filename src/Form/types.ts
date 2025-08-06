@@ -97,8 +97,7 @@ export interface SelectOptionFormEditProps {
     formInstance?: FormInstance;
 }
 
-// Form表单字段属性
-export interface FormItemProps {
+export interface FormItemProps extends FormTypeProps{
     key?:string;
     // 是否隐藏字段
     hidden?: boolean;
@@ -114,6 +113,10 @@ export interface FormItemProps {
     help?: string;
     // 字段提示信息，出现在字段上
     tooltip?: string;
+}
+
+// Form表单字段属性
+export interface FormTypeProps {
     // 组件内的前缀
     prefix?: React.ReactNode;
     // 组件内的后缀
