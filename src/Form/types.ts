@@ -101,8 +101,6 @@ export interface FormItemProps extends FormTypeProps{
     key?:string;
     // 是否隐藏字段
     hidden?: boolean;
-    // 是否禁用
-    disabled?: boolean;
     // 是否必填,当为true时会自动给rules添加required校验
     required?: boolean;
     // 表单字段名
@@ -117,6 +115,8 @@ export interface FormItemProps extends FormTypeProps{
 
 // Form表单字段属性
 export interface FormTypeProps {
+    // 是否禁用
+    disabled?: boolean;
     // 组件内的前缀
     prefix?: React.ReactNode;
     // 组件内的后缀
