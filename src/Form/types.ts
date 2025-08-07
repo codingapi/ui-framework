@@ -255,20 +255,25 @@ export interface FormTypeProps {
     }[]>
 }
 
+interface DisplayBodyRow{
+    fieldName:NamePath;
+}
+
+interface FormDisplayBody {
+    title?:string,
+    list?: {
+        height: number | string,
+        rows: DisplayBodyRow[]
+    }
+}
+
 export interface FormDisplay{
     header?:{
         title?:string,
         left?:string,
         right?:string,
     }
-    body?:{
-        title?:string,
-        list?:
-            {
-                fieldName?:NamePath
-            }[]
-    }[]
-
+    body?:FormDisplayBody[]
 }
 
 
