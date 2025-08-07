@@ -264,7 +264,7 @@ interface FormDisplayBody {
     list?: {
         height: number | string,
         rows: DisplayBodyRow[]
-    }
+    }[]
 }
 
 export interface FormDisplay{
