@@ -256,13 +256,12 @@ export interface FormTypeProps {
 }
 
 export interface FormDisplay{
-
-    header:boolean | {
+    header?:{
         title?:string,
         left?:string,
         right?:string,
     }
-    body:{
+    body?:{
         title?:string,
         list?:
             {
