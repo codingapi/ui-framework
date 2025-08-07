@@ -262,7 +262,7 @@ interface DisplayBodyRow{
 interface FormDisplayBody {
     title?:string,
     list?: {
-        height: number | string,
+        height?: number | string,
         rows: DisplayBodyRow[]
     }[]
 }
