@@ -2,7 +2,6 @@ import React from "react";
 import {FormInstance} from "./instance";
 import {FormValidateContent} from "./validate";
 
-
 export type NamePath =  string | number | boolean | (string | number | boolean)[];
 
 
@@ -97,13 +96,10 @@ export interface SelectOptionFormEditProps {
     formInstance?: FormInstance;
 }
 
-// Form表单字段属性
-export interface FormItemProps {
+export interface FormItemProps extends FormTypeProps{
     key?:string;
     // 是否隐藏字段
     hidden?: boolean;
-    // 是否禁用
-    disabled?: boolean;
     // 是否必填,当为true时会自动给rules添加required校验
     required?: boolean;
     // 表单字段名
@@ -114,6 +110,12 @@ export interface FormItemProps {
     help?: string;
     // 字段提示信息，出现在字段上
     tooltip?: string;
+}
+
+// Form表单字段属性
+export interface FormTypeProps {
+    // 是否禁用
+    disabled?: boolean;
     // 组件内的前缀
     prefix?: React.ReactNode;
     // 组件内的后缀
@@ -253,6 +255,22 @@ export interface FormItemProps {
     }[]>
 }
 
+export interface FormDisplay{
+    header?:{
+        title?:string,
+        left?:string,
+        right?:string,
+    }
+    body?:{
+        title?:string,
+        list?:
+            {
+                fieldName?:NamePath
+            }[]
+    }[]
+
+}
+
 
 export interface FormProps {
     // 表单字段
@@ -261,6 +279,8 @@ export interface FormProps {
     onFinish?: (values: any) => Promise<void>;
     // form布局，默认vertical
     layout?: 'horizontal' | 'vertical';
+    // 字段展示布局
+    display?: FormDisplay;
     // children元素
     children?: React.ReactNode;
     // footer元素
