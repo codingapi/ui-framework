@@ -95,7 +95,7 @@ export interface SelectOptionFormEditProps {
     formInstance?: FormInstance;
 }
 
-export interface FormRole{
+export interface FormRule{
     message?: string;
     required?: boolean;
     validator?: (rule: any, value: any) => Promise<void>;
@@ -116,7 +116,7 @@ export interface FormItemProps extends FormTypeProps{
     // 字段提示信息，出现在字段上
     tooltip?: string;
     // 表单字段的验证规则
-    rules?: FormRole[];
+    rules?: FormRule[];
 }
 
 // Form表单字段属性
