@@ -1,24 +1,21 @@
-import {FormValidateContext} from "./validate";
 import {FormFieldOptionListenerContext, FormFieldReloadListenerContext} from "./listener";
 import {FiledData, FormAction, FormField, NamePath} from "./types";
 import React from "react";
 import {AntdForm, AntdFormInstance} from "./antd";
 
 export class FormInstance {
-    // 校验上下文
-    private readonly validateContext: FormValidateContext;
     // 重新加载上下文
     private readonly reloadContext: FormFieldReloadListenerContext;
     // 选项重新加载上下文
     private readonly optionContext: FormFieldOptionListenerContext;
     // 表单实例
-    private readonly formInstance: AntdFormInstance|undefined;
+    private readonly formInstance: AntdFormInstance | undefined;
     // 表单操作对象
     private readonly formAction: FormAction;
     // 动态表单字段
     private fields: FormField[];
     // 表单字段组件
-    private formFields:  FormField[];
+    private formFields: FormField[];
     // 表单字段更新函数
     private fieldsUpdateDispatch: React.Dispatch<React.SetStateAction<FormField[]>> | undefined;
 
@@ -67,11 +64,12 @@ export class FormInstance {
         return name1 === name2;
     }
 
-    public submit = async () => {
-        const res = await this.validateContext.validate(this);
-        if (res) {
+    public submit = () => {
+        this.formInstance?.validateFields().then((result) => {
             this.formInstance?.submit();
-        }
+        }).catch((err) => {
+            console.error('Form validation failed:', err);
+        });
     }
 
     public reset = (values?: any) => {
@@ -99,7 +97,6 @@ export class FormInstance {
             }
             return field;
         }));
-        this.validateContext.clear();
     }
 
     public required = (name: NamePath, required: boolean) => {
@@ -118,7 +115,6 @@ export class FormInstance {
             }
             return field;
         }));
-        this.validateContext.clear();
     }
 
     public show = (name: NamePath) => {
@@ -137,7 +133,6 @@ export class FormInstance {
             }
             return field;
         }));
-        this.validateContext.clear();
     }
 
     public disable = (name: NamePath) => {
@@ -156,7 +151,6 @@ export class FormInstance {
             }
             return field;
         }));
-        this.validateContext.clear();
     }
 
     public disableAll = () => {
@@ -172,7 +166,6 @@ export class FormInstance {
                 }
             }
         }));
-        this.validateContext.clear();
     }
 
     public enable = (name: NamePath) => {
@@ -191,7 +184,6 @@ export class FormInstance {
             }
             return field;
         }));
-        this.validateContext.clear();
     }
 
     public enableAll = () => {
@@ -207,7 +199,6 @@ export class FormInstance {
                 }
             }
         }));
-        this.validateContext.clear();
     }
 
     public remove = (name: NamePath) => {
@@ -215,7 +206,6 @@ export class FormInstance {
             return;
         }
         this.updateFields(prevFields => prevFields.filter((field) => !(field.props.name && this.namePathEqual(field.props.name, name))));
-        this.validateContext.clear();
     }
 
     public create = (field: FormField, index?: number) => {
@@ -232,7 +222,6 @@ export class FormInstance {
                 return newFields;
             }
         });
-        this.validateContext.clear();
     }
 
     public getFieldValue = (name: NamePath) => {
@@ -281,7 +270,6 @@ export class FormInstance {
     public setFieldValue = (name: NamePath, value: any) => {
         this.formInstance?.setFieldValue(name, value);
         this.reloadContext.notify(name);
-        this.validateContext?.validateField(name, this);
     }
 
     public setFieldsValue = (values: any) => {
@@ -293,8 +281,16 @@ export class FormInstance {
         this.formInstance?.setFields(fields);
     }
 
-    public validate = () => {
-        return this.validateContext.validate(this);
+    public validate = (): Promise<boolean> => {
+        return new Promise((resolve, reject) => {
+            this.formInstance?.validateFields()
+                .then(result => {
+                    resolve(true);
+                })
+                .catch(error => {
+                    resolve(false);
+                });
+        });
     }
 
     public resetFields = (fields: FormField[]) => {
@@ -302,7 +298,6 @@ export class FormInstance {
     }
 
     constructor() {
-        this.validateContext = new FormValidateContext();
         this.reloadContext = new FormFieldReloadListenerContext();
         this.optionContext = new FormFieldOptionListenerContext();
         this.formInstance = AntdForm.getInstance().useForm();
@@ -336,10 +331,6 @@ export class FormInstance {
         return this.formAction;
     }
 
-    public getFormValidateContext = () => {
-        return this.validateContext;
-    }
-
     public getFormFieldReloadListenerContext = () => {
         return this.reloadContext;
     }
@@ -348,7 +339,7 @@ export class FormInstance {
         return this.optionContext;
     }
 
-    public getFormControlInstance = (): AntdFormInstance|undefined => {
+    public getFormControlInstance = (): AntdFormInstance | undefined => {
         return this.formInstance;
     }
 

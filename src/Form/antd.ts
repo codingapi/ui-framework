@@ -14,6 +14,8 @@ export interface AntdFormInstance {
     setFields(fields: FiledData[]): void;
 
     resetFields(): void;
+
+    validateFields(): Promise<any>;
 }
 
 interface AntdFormHolder {
