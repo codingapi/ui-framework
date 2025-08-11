@@ -1,6 +1,5 @@
 import React from "react";
 import {FormInstance} from "./instance";
-import {FormValidateContent} from "./validate";
 
 export type NamePath =  string | number | boolean | (string | number | boolean)[];
 
@@ -96,6 +95,12 @@ export interface SelectOptionFormEditProps {
     formInstance?: FormInstance;
 }
 
+export interface FormRole{
+    message?: string;
+    required?: boolean;
+    validator?: (rule: any, value: any) => Promise<void>;
+}
+
 export interface FormItemProps extends FormTypeProps{
     key?:string;
     // 是否隐藏字段
@@ -110,6 +115,8 @@ export interface FormItemProps extends FormTypeProps{
     help?: string;
     // 字段提示信息，出现在字段上
     tooltip?: string;
+    // 表单字段的验证规则
+    rules?: FormRole[];
 }
 
 // Form表单字段属性
@@ -134,9 +141,6 @@ export interface FormTypeProps {
     options?: FormOption[],
     // 动态加载选项,仅限于select、radio等组件有效
     loadOptions?: (form?: FormInstance) => Promise<FormOption[]>,
-    // 动态校验函数,尽在fields模式下生效
-    validateFunction?: (content: FormValidateContent) => Promise<string[]>,
-
     // 组件的默认属性
     itemProps?:any;
 
