@@ -141,6 +141,8 @@ export interface FormTypeProps {
     options?: FormOption[],
     // 动态加载选项,仅限于select、radio等组件有效
     loadOptions?: (form?: FormInstance) => Promise<FormOption[]>,
+    // 组件选项版本号
+    optionVersion?: number;
     // 组件的默认属性
     itemProps?:any;
 
